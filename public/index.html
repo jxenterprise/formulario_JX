@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario JX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/Img/LOGO-JX.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="logo-jx">
+    <img src="/Img/LOGO-JX.png" alt="JX" class="logo-jx__img" />
+  </div>
+
+  <main class="tarjeta">
+    <header class="tarjeta__cabecera">
+      <p class="marca-label">Formulario JX</p>
+      <h1>Registro de personas <span class="beta">(Beta)</span></h1>
+      <p class="subtitulo">Completa tus datos para registrarte.</p>
+    </header>
+
+    <form id="formRegistro" novalidate>
+
+      <div class="fila">
+        <div class="campo">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Jampier" required />
+          <small class="error" data-error="nombre"></small>
+        </div>
+        <div class="campo">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" name="apellido" placeholder="Ej: Rodríguez" required />
+          <small class="error" data-error="apellido"></small>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required />
+        <small class="error" data-error="correo"></small>
+      </div>
+
+      <div class="fila">
+        <div class="campo">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Ej: 3001234567" inputmode="tel" required />
+          <small class="error" data-error="telefono"></small>
+        </div>
+        <div class="campo campo--corto">
+          <label for="edad">Edad</label>
+          <input type="number" id="edad" name="edad" placeholder="18" min="1" max="120" required />
+          <small class="error" data-error="edad"></small>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="documento">Número de identidad</label>
+        <input type="text" id="documento" name="documento" placeholder="Ej: 1043567890" inputmode="numeric" required />
+        <small class="error" data-error="documento"></small>
+      </div>
+
+      <button type="submit" id="btnEnviar" class="btn-metalico">Enviar registro</button>
+    </form>
+  </main>
+
+  <!-- ===== Modal de envío ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+
+      <!-- Cargando -->
+      <div class="modal-estado" id="mCargando">
+        <div class="m-spinner"></div>
+        <p class="m-titulo">Enviando datos...</p>
+        <p class="m-sub">Por favor espera un momento.</p>
+      </div>
+
+      <!-- Éxito -->
+      <div class="modal-estado oculto" id="mExito">
+        <div class="m-icono">
+          <svg viewBox="0 0 52 52" class="svg-check">
+            <circle class="svg-circulo svg-ok" cx="26" cy="26" r="23"/>
+            <path  class="svg-trazo  svg-ok-trazo" fill="none" d="M14 27 l8 8 l16-16"/>
+          </svg>
+        </div>
+        <p class="m-titulo">¡Enviado con éxito!</p>
+        <p class="m-sub">Tus datos han sido registrados correctamente.</p>
+        <button class="btn-metalico" id="btnCerrarExito">Cerrar</button>
+      </div>
+
+      <!-- Error -->
+      <div class="modal-estado oculto" id="mError">
+        <div class="m-icono">
+          <svg viewBox="0 0 52 52" class="svg-check">
+            <circle class="svg-circulo svg-mal" cx="26" cy="26" r="23"/>
+            <path  class="svg-trazo  svg-mal-trazo" fill="none" d="M16 16 l20 20 M36 16 l-20 20"/>
+          </svg>
+        </div>
+        <p class="m-titulo">Error al enviar</p>
+        <p class="m-sub" id="mErrorMsg">Ocurrió un problema.</p>
+        <button class="btn-metalico btn-metalico--rojo" id="btnCerrarError">Intentar de nuevo</button>
+      </div>
+
+      <!-- Ya registrado -->
+      <div class="modal-estado oculto" id="mDuplicado">
+        <div class="m-emoji">😊</div>
+        <p class="m-titulo m-titulo--ambar">¡Ya estás registrado!</p>
+        <p class="m-sub" id="mDupMsg">Tu información ya se encuentra en nuestra base de datos.</p>
+        <button class="btn-metalico btn-metalico--ambar" id="btnCerrarDup">Entendido</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Backend JX — Acceso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/Img/LOGO-JX.png" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="logo-jx">
+    <img src="/Img/LOGO-JX.png" alt="JX" class="logo-jx__img" />
+  </div>
+
+  <main class="tarjeta">
+    <header class="tarjeta__cabecera tarjeta__cabecera--centro">
+      <p class="marca-label">Backend JX</p>
+      <h1>Acceso administrativo</h1>
+      <p class="subtitulo">Área restringida. Solo personal autorizado.</p>
+    </header>
+
+    <form id="formLogin" novalidate>
+      <div class="campo">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" name="usuario"
+               placeholder="Ingresa tu usuario"
+               autocomplete="username" required />
+      </div>
+      <div class="campo">
+        <label for="clave">Contraseña</label>
+        <div class="campo-pass">
+          <input type="password" id="clave" name="clave"
+                 placeholder="••••••••"
+                 autocomplete="current-password" required />
+          <button type="button" id="btnVer" class="btn-ver" aria-label="Ver contraseña">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0
+                       8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542
+                       7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" id="btnLogin" class="btn-metalico">Entrar</button>
+      <p class="mensaje" id="mensaje" role="status"></p>
+    </form>
+  </main>
+
+  <script src="/login.js"></script>
+</body>
+</html>

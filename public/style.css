@@ -1,0 +1,296 @@
+/* ===== Variables — tema JX ===== */
+:root {
+  --fondo:        #080808;
+  --tarjeta:      #0f0f0f;
+  --borde:        #222;
+  --texto:        #e2e2e2;
+  --texto-suave:  #666;
+  --plata:        #c8c8c8;
+  --ok:           #4eca8a;
+  --error:        #ff4f4f;
+  --metal-grad: linear-gradient(180deg,
+    #aaa 0%, #d8d8d8 30%, #f5f5f5 50%, #d0d0d0 70%, #888 100%);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; }
+
+/* Body centrado — para form y login */
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--fondo);
+  background-image: radial-gradient(ellipse at 50% 0%, #141414 0%, transparent 65%);
+  color: var(--texto);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+/* El panel sobreescribe esto con panel.css */
+
+/* ===== Logo ===== */
+.logo-jx { margin-bottom: 18px; text-align: center; }
+
+.logo-jx__img {
+  width: 88px; height: 88px; object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(220,220,220,0.2));
+}
+
+/* ===== Tarjeta ===== */
+.tarjeta {
+  width: 100%; max-width: 500px;
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  padding: 34px 30px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.025), 0 28px 56px rgba(0,0,0,0.75);
+}
+
+/* ===== Cabecera ===== */
+.tarjeta__cabecera        { margin-bottom: 28px; }
+.tarjeta__cabecera--centro { text-align: center; }
+
+.marca-label {
+  font-family: "Sora", sans-serif; font-size: 0.67rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--texto-suave);
+  margin-bottom: 8px;
+}
+
+.tarjeta__cabecera h1 {
+  font-family: "Sora", sans-serif;
+  font-size: clamp(1.15rem, 4vw, 1.45rem);
+  font-weight: 700; color: var(--texto); letter-spacing: -0.02em; line-height: 1.2;
+}
+
+.subtitulo { margin-top: 6px; color: var(--texto-suave); font-size: 0.87rem; line-height: 1.5; }
+
+/* Badge Beta */
+.beta {
+  font-size: 0.52em;
+  font-weight: 700;
+  color: #f0b429;
+  background: rgba(240, 180, 41, 0.1);
+  border: 1px solid rgba(240, 180, 41, 0.3);
+  border-radius: 6px;
+  padding: 2px 7px;
+  letter-spacing: 0.08em;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-family: "Sora", sans-serif;
+  position: relative;
+  top: -2px;
+}
+
+/* ===== Campos ===== */
+.fila { display: flex; gap: 12px; }
+
+.campo { flex: 1; display: flex; flex-direction: column; margin-bottom: 16px; }
+.campo--corto { flex: 0 0 100px; }
+
+label {
+  font-size: 0.72rem; font-weight: 600; color: var(--texto-suave);
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.09em;
+}
+
+input {
+  background: #080808; border: 1px solid #1e1e1e; border-radius: 9px;
+  padding: 11px 14px; font-size: 0.92rem; color: var(--texto);
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%; font-family: "Inter", system-ui, sans-serif;
+  -webkit-appearance: none; appearance: none;
+}
+input::placeholder { color: #2e2e2e; }
+input:focus { border-color: #444; box-shadow: 0 0 0 3px rgba(180,180,180,0.06); }
+input.invalido { border-color: var(--error); box-shadow: 0 0 0 3px rgba(255,79,79,0.08); }
+/* Evita el fondo azul del autofill en Chrome */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 40px #080808 inset;
+  -webkit-text-fill-color: var(--texto);
+}
+
+.error { color: var(--error); font-size: 0.72rem; margin-top: 5px; min-height: 1em; }
+
+/* Mensaje de estado en login */
+.mensaje { min-height: 1.4em; font-size: 0.84rem; margin-top: 10px; text-align: center; }
+.fallo   { color: var(--error); }
+
+/* ===== Campo contraseña ===== */
+.campo-pass { position: relative; display: flex; align-items: center; }
+.campo-pass input { padding-right: 44px; }
+
+.btn-ver {
+  position: absolute; right: 12px; background: none; border: none;
+  width: auto; margin: 0; padding: 4px; color: var(--texto-suave);
+  cursor: pointer; display: flex; align-items: center; transition: color 0.2s;
+}
+.btn-ver:hover, .btn-ver:active { background: none; transform: none; color: var(--plata); }
+
+/* ===== Botón metálico ===== */
+.btn-metalico {
+  width: 100%; margin-top: 8px; padding: 13px 20px;
+  border: none; border-radius: 9px; background: var(--metal-grad);
+  color: #080808; font-family: "Sora", sans-serif;
+  font-size: 0.92rem; font-weight: 700; letter-spacing: 0.05em;
+  cursor: pointer; transition: filter 0.2s, transform 0.1s;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.5);
+  -webkit-appearance: none; appearance: none;
+}
+.btn-metalico:hover   { filter: brightness(1.1); }
+.btn-metalico:active  { transform: scale(0.98); }
+.btn-metalico:disabled { opacity: 0.4; cursor: not-allowed; filter: none; }
+.btn-metalico--rojo {
+  background: linear-gradient(180deg,#c03030 0%,#ff5555 45%,#ff7070 50%,#dd4444 70%,#aa2222 100%);
+  color: #fff;
+}
+
+.btn-metalico--ambar {
+  background: linear-gradient(180deg,#a06800 0%,#e09500 40%,#ffc233 50%,#d08800 70%,#8a5500 100%);
+  color: #fff;
+}
+
+/* Emoji animado en modal duplicado */
+.m-emoji {
+  font-size: 3.2rem;
+  margin-bottom: 18px;
+  display: block;
+  animation: bounceIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes bounceIn {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  70%  { transform: scale(1.15) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.m-titulo--ambar { color: #ffc233; }
+
+/* ===== Badge admin ===== */
+.badge-admin {
+  display: inline-block; font-size: 0.67rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--texto-suave);
+  background: #111; border: 1px solid #222; border-radius: 20px; padding: 2px 10px;
+}
+
+/* ===== Volver ===== */
+.volver { margin-top: 22px; text-align: center; font-size: 0.82rem; }
+.volver a { color: var(--texto-suave); text-decoration: none; transition: color 0.2s; }
+.volver a:hover { color: var(--plata); }
+
+/* ═══════════════════════════════════════
+   MODAL DE ENVÍO
+═══════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.modal-overlay.visible { opacity: 1; pointer-events: all; }
+
+.modal-box {
+  background: #0d0d0d; border: 1px solid #252525; border-radius: 20px;
+  padding: 44px 36px; width: 100%; max-width: 340px; text-align: center;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.85);
+  transform: translateY(12px) scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+.modal-overlay.visible .modal-box { transform: translateY(0) scale(1); }
+
+.modal-estado { display: flex; flex-direction: column; align-items: center; }
+
+/* Spinner */
+.m-spinner {
+  width: 60px; height: 60px; border: 3px solid #1a1a1a; border-top-color: #c8c8c8;
+  border-radius: 50%; animation: spin 0.75s linear infinite; margin-bottom: 22px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Icono SVG */
+.m-icono { width: 72px; height: 72px; margin-bottom: 22px; }
+.svg-check { width: 100%; height: 100%; }
+
+.svg-circulo {
+  fill: none; stroke-width: 2.5; stroke-dasharray: 166; stroke-dashoffset: 166;
+  animation: trazar 0.65s ease forwards;
+}
+.svg-ok  { stroke: var(--ok); }
+.svg-mal { stroke: var(--error); }
+
+.svg-trazo {
+  stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 60; stroke-dashoffset: 60;
+  animation: trazar 0.4s ease 0.65s forwards;
+}
+.svg-ok-trazo  { stroke: var(--ok); }
+.svg-mal-trazo { stroke: var(--error); }
+
+@keyframes trazar { to { stroke-dashoffset: 0; } }
+
+.m-titulo {
+  font-family: "Sora", sans-serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--texto); margin-bottom: 8px;
+}
+.m-sub { color: var(--texto-suave); font-size: 0.87rem; line-height: 1.5; margin-bottom: 26px; }
+
+.oculto { display: none !important; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — Form y Login
+═══════════════════════════════════════ */
+
+/* Tablet (≤768px) */
+@media (max-width: 768px) {
+  body { padding: 28px 16px; }
+}
+
+/* Tablet pequeña / móvil grande (≤600px) */
+@media (max-width: 600px) {
+  .fila { flex-direction: column; gap: 0; }
+  .campo--corto { flex: 1 1 auto; }
+  .tarjeta { padding: 30px 24px; }
+}
+
+/* Móvil normal (≤480px) */
+@media (max-width: 480px) {
+  body { padding: 20px 12px; }
+  .tarjeta { padding: 26px 18px; border-radius: 14px; }
+  .logo-jx__img { width: 72px; height: 72px; }
+  /* Evita auto-zoom en Safari iOS (inputs < 16px disparan zoom) */
+  input { font-size: 16px; }
+  .modal-overlay { padding: 14px; }
+  .modal-box { padding: 34px 22px; border-radius: 16px; }
+  .m-titulo { font-size: 1rem; }
+  .m-sub { font-size: 0.83rem; }
+  .m-emoji { font-size: 2.6rem; }
+  .btn-metalico { padding: 12px 18px; }
+}
+
+/* Móvil pequeño (≤390px) */
+@media (max-width: 390px) {
+  body { padding: 16px 10px; }
+  .tarjeta { padding: 22px 16px; border-radius: 12px; }
+  .logo-jx__img { width: 62px; height: 62px; }
+  .tarjeta__cabecera h1 { font-size: 1.1rem; }
+  .beta { font-size: 0.45em; padding: 1px 5px; }
+  .btn-metalico { font-size: 0.87rem; padding: 11px 14px; }
+  .modal-overlay { padding: 10px; }
+  .modal-box { padding: 26px 16px; }
+  .m-icono { width: 58px; height: 58px; }
+  .m-spinner { width: 52px; height: 52px; }
+}
+
+/* Pantalla grande (≥1200px) */
+@media (min-width: 1200px) {
+  .tarjeta { max-width: 520px; }
+  .logo-jx__img { width: 100px; height: 100px; }
+}
+
+/* Pantalla muy grande (≥1600px) */
+@media (min-width: 1600px) {
+  .tarjeta { max-width: 540px; }
+  .logo-jx__img { width: 110px; height: 110px; }
+}
