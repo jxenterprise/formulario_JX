@@ -62,6 +62,27 @@
         <small class="error" data-error="documento"></small>
       </div>
 
+      <div class="campo">
+        <label for="genero">Género</label>
+        <div class="genero-opciones">
+          <label class="genero-opcion">
+            <input type="radio" name="genero" value="Hombre" required />
+            <span>Hombre</span>
+          </label>
+          <label class="genero-opcion">
+            <input type="radio" name="genero" value="Mujer" />
+            <span>Mujer</span>
+          </label>
+          <label class="genero-opcion">
+            <input type="radio" name="genero" value="Otro" />
+            <span>Otro</span>
+          </label>
+        </div>
+        <input type="text" id="generoPersonalizado" name="generoPersonalizado"
+               placeholder="Escribe tu género..." style="display:none; margin-top:10px;" />
+        <small class="error" data-error="genero"></small>
+      </div>
+
       <button type="submit" id="btnEnviar" class="btn-metalico">Enviar registro</button>
     </form>
   </main>

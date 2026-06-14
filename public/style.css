@@ -113,6 +113,24 @@ input:-webkit-autofill {
 
 .error { color: var(--error); font-size: 0.72rem; margin-top: 5px; min-height: 1em; }
 
+/* ===== Género ===== */
+.genero-opciones { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+.genero-opcion {
+  display: flex; align-items: center; gap: 7px;
+  background: #0d0d0d; border: 1px solid #555; border-radius: 8px;
+  padding: 9px 16px; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 0.88rem; color: var(--texto-suave);
+}
+.genero-opcion:hover { border-color: var(--plata); color: var(--texto); }
+.genero-opcion input[type="radio"] { display: none; }
+.genero-opcion:has(input:checked) {
+  border-color: var(--plata);
+  background: rgba(200,200,200,0.06);
+  color: var(--texto);
+}
+
 /* Mensaje de estado en login */
 .mensaje { min-height: 1.4em; font-size: 0.84rem; margin-top: 10px; text-align: center; }
 .fallo   { color: var(--error); }

@@ -51,6 +51,15 @@ document.getElementById("btnCerrarExito").addEventListener("click", cerrarModal)
 document.getElementById("btnCerrarError").addEventListener("click", cerrarModal);
 document.getElementById("btnCerrarDup").addEventListener("click", cerrarModal);
 
+// ── Género: mostrar campo personalizado si elige "Otro" ──
+document.querySelectorAll('input[name="genero"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    const campo = document.getElementById("generoPersonalizado");
+    campo.style.display = radio.value === "Otro" ? "block" : "none";
+    if (radio.value !== "Otro") campo.value = "";
+  });
+});
+
 // ── Validación ──
 function validar(datos) {
   const errores = {};
@@ -64,6 +73,7 @@ function validar(datos) {
                                          errores.documento = "Solo números (6–15 dígitos)";
   const edad = Number(datos.edad);
   if (!edad || edad < 1 || edad > 120)  errores.edad      = "Entre 1 y 120";
+  if (!datos.genero)                     errores.genero    = "Selecciona una opción";
   return errores;
 }
 
@@ -82,6 +92,11 @@ function mostrarErrores(errores) {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const generoRadio = document.querySelector('input[name="genero"]:checked');
+  const generoValor = generoRadio?.value === "Otro"
+    ? document.getElementById("generoPersonalizado").value.trim()
+    : generoRadio?.value || "";
+
   const datos = {
     nombre:    document.getElementById("nombre").value,
     apellido:  document.getElementById("apellido").value,
@@ -89,6 +104,7 @@ form.addEventListener("submit", async (e) => {
     telefono:  document.getElementById("telefono").value,
     documento: document.getElementById("documento").value,
     edad:      document.getElementById("edad").value,
+    genero:    generoValor,
   };
 
   const errores = validar(datos);

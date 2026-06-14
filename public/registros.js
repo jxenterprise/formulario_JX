@@ -82,6 +82,7 @@ function renderTabla(datos) {
       <td class="td-muted">${esc(r.telefono)}</td>
       <td class="td-muted">${esc(r.documento)}</td>
       <td><span class="badge-edad">${esc(r.edad)} años</span></td>
+      <td class="td-muted">${esc(r.genero)}</td>
       <td><span class="fecha-txt">${esc(r.fecha)}</span></td>
       <td>
         <button class="btn-row-delete"

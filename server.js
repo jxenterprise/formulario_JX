@@ -29,6 +29,7 @@ const RegistroSchema = new mongoose.Schema({
   telefono:  { type: String, required: true },
   documento: { type: String, required: true, unique: true },
   edad:      { type: Number, required: true },
+  genero:    { type: String, default: "" },
   fecha:     { type: String },
 }, { versionKey: false });
 
@@ -73,9 +74,9 @@ app.get("/jx-backend/panel", soloAdminHTML, (req, res) => {
 
 app.post("/api/registros", async (req, res) => {
   try {
-    const { nombre, apellido, correo, telefono, documento, edad } = req.body;
+    const { nombre, apellido, correo, telefono, documento, edad, genero } = req.body;
 
-    if (!nombre || !apellido || !correo || !telefono || !documento || !edad) {
+    if (!nombre || !apellido || !correo || !telefono || !documento || !edad || !genero) {
       return res.status(400).json({ mensaje: "Faltan campos obligatorios" });
     }
 
@@ -94,6 +95,7 @@ app.post("/api/registros", async (req, res) => {
     const nuevo = new Registro({
       nombre, apellido, correo, telefono, documento,
       edad: Number(edad),
+      genero,
       fecha: new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" }),
     });
 
