@@ -11,9 +11,12 @@ const confirmOverlay = document.getElementById("confirmOverlay");
 const confirmNombre  = document.getElementById("confirmNombre");
 const btnConfirmar   = document.getElementById("btnConfirmar");
 const btnCancelar    = document.getElementById("btnCancelar");
+const sesionOverlay  = document.getElementById("sesionOverlay");
+const btnVolverLogin = document.getElementById("btnVolverLogin");
 
 let idPendiente = null;
 
+// ── Escape XSS ──
 function esc(str) {
   return String(str ?? "—")
     .replace(/&/g, "&amp;")
@@ -21,6 +24,48 @@ function esc(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 }
+
+// ── Modal sesión expirada ──
+function mostrarModalSesion() {
+  const svg = sesionOverlay.querySelector(".svg-sesion");
+  if (svg) { svg.style.animation = "none"; svg.offsetHeight; svg.style.animation = ""; }
+  sesionOverlay.classList.add("visible");
+}
+
+btnVolverLogin.addEventListener("click", () => {
+  window.location.href = "/jx-backend";
+});
+
+// ── Timer de inactividad (5 minutos) ──
+const INACTIVIDAD_MS  = 5 * 60 * 1000;
+const CLAVE_ACTIVIDAD = "jx_ultima_actividad";
+let timerInactividad  = null;
+
+function registrarActividad() {
+  localStorage.setItem(CLAVE_ACTIVIDAD, Date.now().toString());
+  clearTimeout(timerInactividad);
+  timerInactividad = setTimeout(cerrarPorInactividad, INACTIVIDAD_MS);
+}
+
+async function cerrarPorInactividad() {
+  await fetch("/api/logout", { method: "POST" }).catch(() => {});
+  localStorage.removeItem(CLAVE_ACTIVIDAD);
+  mostrarModalSesion();
+}
+
+// Detectar si reabrió la pestaña con sesión vencida
+const ultimaActividad = localStorage.getItem(CLAVE_ACTIVIDAD);
+if (ultimaActividad && Date.now() - Number(ultimaActividad) > INACTIVIDAD_MS) {
+  fetch("/api/logout", { method: "POST" }).catch(() => {});
+  localStorage.removeItem(CLAVE_ACTIVIDAD);
+  mostrarModalSesion();
+}
+
+["mousemove", "mousedown", "keydown", "scroll", "touchstart", "click"].forEach(ev => {
+  document.addEventListener(ev, registrarActividad, { passive: true });
+});
+
+registrarActividad();
 
 // ── Carga ──
 async function cargarRegistros() {
@@ -32,7 +77,7 @@ async function cargarRegistros() {
 
   try {
     const res = await fetch("/api/registros");
-    if (res.status === 401) { window.location.href = "/jx-backend"; return; }
+    if (res.status === 401) { mostrarModalSesion(); return; }
 
     const datos = await res.json();
     actualizarStats(datos);
@@ -57,7 +102,7 @@ function actualizarStats(datos) {
     elEdad.textContent  = Math.round(prom);
     elFecha.textContent = (datos[datos.length - 1].fecha || "").split(",")[0] || "—";
   } else {
-    elEdad.textContent = "—";
+    elEdad.textContent  = "—";
     elFecha.textContent = "—";
   }
 }
@@ -118,7 +163,6 @@ btnCancelar.addEventListener("click", () => {
   idPendiente = null;
 });
 
-// Cerrar confirm al hacer clic fuera del box
 confirmOverlay.addEventListener("click", (e) => {
   if (e.target === confirmOverlay) {
     confirmOverlay.classList.remove("visible");
@@ -131,7 +175,7 @@ btnConfirmar.addEventListener("click", async () => {
   confirmOverlay.classList.remove("visible");
   try {
     const res = await fetch(`/api/registros/${idPendiente}`, { method: "DELETE" });
-    if (res.status === 401) { window.location.href = "/jx-backend"; return; }
+    if (res.status === 401) { mostrarModalSesion(); return; }
     await cargarRegistros();
   } catch {
     alert("Error al eliminar. Intenta de nuevo.");
@@ -142,6 +186,8 @@ btnConfirmar.addEventListener("click", async () => {
 
 // ── Logout ──
 btnLogout.addEventListener("click", async () => {
+  clearTimeout(timerInactividad);
+  localStorage.removeItem(CLAVE_ACTIVIDAD);
   await fetch("/api/logout", { method: "POST" });
   window.location.href = "/jx-backend";
 });
