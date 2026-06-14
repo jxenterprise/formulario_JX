@@ -94,7 +94,7 @@ app.post("/api/registros", async (req, res) => {
     const nuevo = new Registro({
       nombre, apellido, correo, telefono, documento,
       edad: Number(edad),
-      fecha: new Date().toLocaleString("es-CO"),
+      fecha: new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" }),
     });
 
     await nuevo.save();
